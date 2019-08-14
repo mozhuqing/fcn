@@ -27,7 +27,7 @@ from tensorflow.python.framework import ops
 
 from image_utils import *
 from pascal_voc_dataset import PascalVOC2012Dataset
-import fcn
+import fcn_model
 
 
 # Parse command line arguments
@@ -533,7 +533,7 @@ def oneoff_training(fcn_version, dataset_name, dataset_path, metrics, model_name
 
     # Build the model
     saved_variables = None if saved_variables is None else os.path.join(FLAGS.save_dir, saved_variables)
-    model = fcn.Model(dataset.image_shape, dataset.n_classes, FLAGS.vgg16_weights_path)
+    model = fcn_model.Model(dataset.image_shape, dataset.n_classes, FLAGS.vgg16_weights_path)
     model(fcn_version, saved_variables=saved_variables)
 
     # No decay is applied, this is a constant learning rate
@@ -582,7 +582,7 @@ def evaluate_model(fcn_version, dataset_name, dataset_path, metrics, saved_varia
     dataset_val = dataset.load_dataset(is_training=False, data_dir=dataset_path, batch_size=FLAGS.batch_size)
 
     # Build the model
-    model = fcn.Model(dataset.image_shape, dataset.n_classes, FLAGS.vgg16_weights_path)
+    model = fcn_model.Model(dataset.image_shape, dataset.n_classes, FLAGS.vgg16_weights_path)
     model(fcn_version)
 
     # TODO: remove unnecessary graph operations
@@ -671,7 +671,7 @@ def predict_model(fcn_version, dataset_name, dataset_path, saved_variables):
         raise ValueError('{} is an invalid dataset'.format(dataset_name))
 
     # Build the model
-    model = fcn.Model(dataset.image_shape, dataset.n_classes, FLAGS.vgg16_weights_path)
+    model = fcn_model.Model(dataset.image_shape, dataset.n_classes, FLAGS.vgg16_weights_path)
     model(fcn_version)
 
     # TODO: remove unnecessary graph operations
