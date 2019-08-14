@@ -27,7 +27,7 @@ from tensorflow.python.framework import ops
 
 from image_utils import *
 from pascal_voc_dataset import PascalVOC2012Dataset
-import fcn_model
+import fcn
 
 
 # Parse command line arguments
