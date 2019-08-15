@@ -105,8 +105,11 @@ def save_learning_curve(model_name, epoch, metrics, training_loss, training_metr
     ax2.set_ylabel('Score')
     ax1.legend(loc="lower center")
     ax2.legend(loc="center")
-    plt.savefig('{}_training_history_{}.png'.format(os.path.join(FLAGS.save_dir, model_name), epoch + 1));
-
+    plt.show()
+    try: 
+        plt.savefig('{}_training_history_{}.png'.format(os.path.join(FLAGS.save_dir, model_name), epoch + 1));
+    except:
+        pass
     # Save loss and accuracy in a DataFrame
     df = pd.DataFrame()
     df['train_loss'] = training_loss
@@ -393,7 +396,7 @@ def fit_model(model, epochs, batch_size, dataset_train, dataset_val, model_name,
                                           model.keep_prob: FLAGS.dropout_rate})
                 training_loss[-1] += res["loss"][0]
                 n_batches += 1
-                print("Number of batches trained: {}".format(n_batches))
+
             except tf.errors.OutOfRangeError:
                 break
 
