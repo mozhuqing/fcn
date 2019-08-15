@@ -119,7 +119,10 @@ def save_learning_curve(model_name, epoch, metrics, training_loss, training_metr
         df['val_loss'] = validation_loss
         for metric in list(metrics.keys()):
             df['val_' + metric] = validation_metrics[metric]
-    df.to_csv('{}_{}.csv'.format(os.path.join(FLAGS.save_dir, model_name), epoch + 1))
+    try: 
+        df.to_csv('{}_{}.csv'.format(os.path.join(FLAGS.save_dir, model_name), epoch + 1))
+    except:
+        pass
 
 
 def clear_session():
