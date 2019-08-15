@@ -393,6 +393,7 @@ def fit_model(model, epochs, batch_size, dataset_train, dataset_val, model_name,
                                           model.keep_prob: FLAGS.dropout_rate})
                 training_loss[-1] += res["loss"][0]
                 n_batches += 1
+                print("Number of batches trained: {}".format(n_batches))
             except tf.errors.OutOfRangeError:
                 break
 
